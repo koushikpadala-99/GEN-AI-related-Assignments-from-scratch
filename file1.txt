@@ -1,0 +1,14 @@
+
+ adding some new information
+present
+absent
+absent
+present
+enter present or absent for member 1presnet
+enter present or absent for member 2absent
+enter present or absent for member 3absent
+enter present or absent for member 4present
+enter present or absent for member 1present
+enter present or absent for member 2absent
+enter present or absent for member 3present
+enter present or absent for member 4absent

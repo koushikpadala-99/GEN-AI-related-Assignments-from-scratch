@@ -1,0 +1,124 @@
+MySQL database
+
+1.difference between SQL vs MySQL
+	SQL is programming language where as MySQL is database using SQL to maintain queries
+
+string data type is of three types :Varchar , char , text
+	max characters for varchar and char are 255
+	1. difference between varchar vs char
+		As varchar is a dynamic memory updating also ** varchar - when memory plays crucial role 
+								char - when we need fast execution **
+	2. What are constraints
+		constraints are set rules that applied on particular column or table in database to maintain data integrity and accuracy
+		some of the SQL constraints:
+		
+			1. CHECK: this is conditional based constraint 
+				eg: if we are storing the data from users form if the user is below age of 18 then it is invalid user 
+					--->Age int Check(Age>18)
+			2 NOTNULL: this constraint is used for  columns the values that should not be null means there should be a value
+				eg Gender VARCHAR(10) NOT NULL
+			3. UNIQUE: there should not be any duplicates in the column 
+				eg: ID
+
+**In SQL primary key constraints cannot be when it is connected to another table foreign key   
+
+
+
+ASSIGNMENT 4
+
+
+show databases;
+use classicmodels;
+show tables;
+select * from employees; 
+select firstName,lastName,jobTitle from employees where officeCode=1;
+
+#Q-2
+select * from orderdetails;
+update orderdetails set priceEach=priceEach-500;
+#safe mode is disabled 
+select * from orderdetails;
+create table dummy_orders as select * from orderdetails;
+select * from dummy_orders;
+alter table dummy_orders add column updated_price float8; 
+update dummy_orders set updated_price=priceEach+500;
+select * from dummy_orders;
+select priceEach,updated_price from dummy_orders;
+
+#Q-3
+select * from products;
+alter table products add column profit float8;
+update products set profit=MSRP-buyprice;
+select productName,buyPrice,MSRP,profit from products;
+
+#Q-4
+select * from products where buyPrice>50;	
+
+#Q-5
+select * from  products where quantityInStock>=40;
+
+#Q-6
+select * from customers where country='USA';
+
+#Q-7
+select * from customers where country='USA' or country='France';
+
+#Q-8
+select * from customers where not country='USA';
+
+#Q-9
+select * from customers where country in('USA','France','Germany');
+
+#Q-10
+select * from products where productLine in('Classic Cars','Motorcycles','Planes');
+
+#Q-11
+select * from products where buyprice between 30 and 80;
+
+#Q-12
+select * from customers;
+select * from customers where customerName like 'A%';
+
+#Q-13
+select * from customers where customerName like '%agon%';
+
+#Q-14 ending with 'ores'
+select * from customers where customerName like '%ores';
+
+#Q-15
+select * from products;
+select * from products where productName like '1969%';
+
+#Q-16
+select * from employees where firstName like 'L%';
+
+#Q-17
+select * from customers;
+select * from customers where contactFirstName like 'J%' and length(contactFirstName)=5;
+
+insert into customers(customerNumber,customerName) values(1002,"Koushik");
+select* from customers where customerName="Koushik";
+
+#count total no of rows
+select count(*) from employees;
+
+# minimum and maximum in the price of the orderdetails
+select min(priceEach) from orderdetails;
+select max(priceEach) from orderdetails;
+
+#print the duplicate rows
+select * from employees; 
+select * from employees where firstName in (select firstName from employees group by firstName having count(*)>1);
+
+
+#performing join on orderdetails table and orders table
+select od.productCode,o.customerNumber from orderdetails as od inner join orders as o on od.orderNumber=o.orderNumber;
+#print amount paid by customer if the payment is successful
+select * from orders where Not status='shipped';
+
+#inserting data into productlines table
+select * from productlines;
+show create table productlines;
+update productlines set image='https://en.wikipedia.org/wiki/Rohit_Sharma#/media/File:Prime_Minister_Of_Bharat_Shri_Narendra_Damodardas_Modi_with_Shri_Rohit_Gurunath_Sharma_(Cropped).jpg' where productLine ='Classic Cars';
+
+select image from productlines where productLine='Classic Cars';
