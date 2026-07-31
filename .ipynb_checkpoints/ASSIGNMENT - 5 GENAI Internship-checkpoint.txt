@@ -1,0 +1,134 @@
+ASSIGNMENT - 5
+
+use classicmodels;
+show tables;
+
+#Assignment 5
+
+#Q-1
+select Sum(amount) from payments;
+
+#Q-2
+select * from customers;
+select count(*),max(creditLimit),min(creditLimit),avg(creditLimit)from customers;
+
+#Q-3
+select max(buyPrice),min(buyPrice),avg(buyPrice)from products;
+
+
+#Q-4
+select country,count(*) from customers group by country;
+
+#Q-5
+select * from employees;
+select officeCode,count(*) from employees group by officeCode;
+
+#Q-6
+select * from products;
+select productLine,count(*) from products group by productLine;
+
+#Q-7
+select * from customers order by creditLimit desc;
+
+#Q-8
+select * from products order by buyPrice asc;
+
+#Q-9
+select * from employees;
+alter table  employees add column fullname varchar(255);
+update employees set fullname=concat(firstName,' ',lastName);
+
+select * from employees order by fullname asc;
+
+#Q-10
+select customerName,creditLimit from customers order by creditLimit desc limit 5;
+
+#Q-11
+select productName,buyPrice from products order by buyPrice limit 10;
+
+#Q-12
+select orderNumber,orderDate from orders order by orderDate desc limit 7;
+
+#Q-13
+select country from customers group by country having count(customerName)>5;
+
+#Q-14
+select * from products;
+select productLine from products group by productLine having count(*)>10;
+
+#Q-15
+select officeCode from employees group by officeCode having count(*)>2;
+
+#Q-16
+select c.customerName,o.orderNumber,o.orderDate from customers as c inner join orders as o on c.customerNumber=o.customerNumber;
+
+#Q-17
+select e.fullname,o.city,o.country from employees as e inner join offices as o on e.officeCode = o.officeCode;
+
+#Q-18
+select c.customerName,o.orderNumber from customers as c left join orders as o on (c.customerNumber=o.customerNumber or c.customerNumber=NULL);
+
+#Q-19
+select e.fullname,c.customerName from employees as e left join customers as c on c.salesRepEmployeeNumber=e.employeeNumber;
+
+#Q-20
+#Full join is not supported directly in MYSQL so do(left-join,union,right-join)
+(select c.customerName,o.orderNumber from customers as c left join orders as o on o.customerNumber=c.customerNumber) union (select c.customerName,o.orderNumber from customers as c right join orders as o on o.customerNumber=c.customerNumber);
+
+
+#get the second highest profit of the product
+select max(profit) from products where profit<(select max(profit) from products);
+
+
+create database college;
+use college;
+
+
+
+
+#student table
+create table students(
+	id int primary key auto_increment,
+    student_name varchar(255) not null,
+    branch varchar(255)
+);
+alter table students add column admission_year int;
+alter table students rename column branch to branch_id,rename column id to student_id;
+
+
+
+#faculty table
+create table faculty(
+	id int primary key auto_increment,
+    faculty_name varchar(255) not null,
+    branch varchar(255),
+    post varchar(255) not null
+);
+alter table faculty rename column teacher_id to faculty_id ;
+alter table faculty rename column branch to branch_id ;
+alter table faculty modify column post int ;
+alter table faculty rename column post to experience;
+
+
+
+
+
+create table branch(
+	branch_id int primary key auto_increment,
+    branch_name varchar(255),
+    hod_name varchar(255),
+    office_number int
+);
+
+
+
+
+create table courses(
+	course_id int primary key auto_increment,
+    course_name varchar(255),
+    branch_id int,
+    faculty_id int
+);
+
+#continue with primary key
+

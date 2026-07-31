@@ -1,0 +1,5 @@
+ID,Fever,Cough,Oxygen_level,Age,Result
+1,yes,yes,96,28,mild
+2,yes,yes,89,62,severe
+3,no,yes,99,33,mild
+4,yes,yes,90,48,moderate
